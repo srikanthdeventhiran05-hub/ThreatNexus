@@ -27,3 +27,28 @@ body {
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
+
+.auth-input {
+  width: 100%;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  background: #0a0e17;
+  color: white;
+  padding: 0.7rem 1rem;
+  outline: none;
+}
+
+.auth-input:focus { border-color: #3b82f6; }
+.auth-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  background: #3b82f6;
+  color: white;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+}
+.auth-button:disabled { opacity: 0.5; }
