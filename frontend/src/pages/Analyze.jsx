@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Upload, Search, Shield, AlertTriangle, Globe, Mail, Link as LinkIcon, FileText, ChevronDown, ChevronUp, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
-import axios from 'axios'
+import { analyze } from '../services/api'
 
 function ScoreGauge({ score, level }) {
   const color =
@@ -54,9 +54,8 @@ export default function Analyze() {
   const analyzeEmail = async () => {
     setLoading(true)
     try {
-      const endpoint = mode === 'full' ? '/api/analyze' : '/api/quick-scan'
       const payload = mode === 'full' ? form : quickForm
-      const res = await axios.post(endpoint, payload)
+      const res = await analyze(payload, mode !== 'full')
       setResult(res.data)
       toast.success('Analysis complete')
     } catch (err) {

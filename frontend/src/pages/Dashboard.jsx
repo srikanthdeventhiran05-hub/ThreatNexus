@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Shield, AlertTriangle, CheckCircle, TrendingUp, Mail, Globe, Activity } from 'lucide-react'
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import axios from 'axios'
+import { fetchStats } from '../services/api'
 
 const COLORS = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#dc2626']
 
@@ -28,22 +28,10 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchStats()
+      .then(setStats)
+      .catch(() => {})
+      .finally(() => setLoading(false))
   }, [])
-
-  const fetchStats = async () => {
-    try {
-      const res = await axios.get('/api/stats')
-      setStats(res.data)
-    } catch {
-      setStats({
-        total_analyses: 0, threats_detected: 0, safe_emails: 0,
-        high_risk_count: 0, avg_risk_score: 0, top_threat_types: [],
-        recent_analyses: [], threat_distribution: {},
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
 
   if (loading) {
     return (

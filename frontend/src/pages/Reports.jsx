@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FileText, Download, Search } from 'lucide-react'
-import axios from 'axios'
+import { fetchRecentAnalyses } from '../services/api'
 
 export default function Reports() {
   const [analyses, setAnalyses] = useState([])
@@ -11,8 +11,8 @@ export default function Reports() {
 
   const fetchAnalyses = async () => {
     try {
-      const res = await axios.get('/api/analyses/recent?limit=50')
-      setAnalyses(res.data)
+      const data = await fetchRecentAnalyses(50)
+      setAnalyses(data)
     } catch { /* empty */ } finally { setLoading(false) }
   }
 
