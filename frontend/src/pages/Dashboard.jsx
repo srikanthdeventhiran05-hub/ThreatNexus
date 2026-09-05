@@ -22,14 +22,24 @@ function StatCard({ icon: Icon, label, value, color, sub }) {
   )
 }
 
+const EMPTY_STATS = {
+  total_analyses: 0,
+  threats_detected: 0,
+  safe_emails: 0,
+  avg_risk_score: 0,
+  threat_distribution: {},
+  top_threat_types: [],
+  recent_analyses: [],
+}
+
 export default function Dashboard() {
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchStats()
-      .then(setStats)
-      .catch(() => {})
+      .then((data) => setStats({ ...EMPTY_STATS, ...data }))
+      .catch(() => setStats(EMPTY_STATS))
       .finally(() => setLoading(false))
   }, [])
 
