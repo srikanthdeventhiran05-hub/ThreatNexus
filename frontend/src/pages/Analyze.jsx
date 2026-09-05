@@ -55,8 +55,8 @@ export default function Analyze() {
     setLoading(true)
     try {
       const payload = mode === 'full' ? form : quickForm
-      const res = await analyze(payload, mode !== 'full')
-      setResult(res.data)
+      const result = await analyze(payload, mode !== 'full')
+      setResult(result)
       toast.success('Analysis complete')
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Analysis failed')
